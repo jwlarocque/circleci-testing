@@ -12,6 +12,8 @@ jobs:
       - checkout
       - python/install-deps
       - run: pytest --verbose --junit-xml test-reports/results.xml
+      - store_test_results:
+          path: test-reports
 
 workflows:
   version: 2.1
