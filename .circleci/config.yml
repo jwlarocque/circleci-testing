@@ -5,14 +5,13 @@ orbs:
 
 jobs:
   build:
-    working_directory: ~/
     docker:
       - image: circleci/python:2.7
     steps:
       - run: echo $PWD
-      - run: ls
-      - python/install-deps
       - checkout
+      - python/install-deps
+      - run: ls -al
       - run: echo "wow all done"
       - run: python test.py
 
