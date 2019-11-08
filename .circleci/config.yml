@@ -11,6 +11,11 @@ jobs:
       - run: echo $PWD
       - checkout
       - python/install-deps
+
+  test:
+    docker:
+      - image: circleci/python:2.7
+    steps:
       - run: pytest --verbose --junit-xml test-reports/results.xml
       - store_test_results:
           path: test-reports
@@ -20,3 +25,6 @@ workflows:
   "Test":
     jobs:
       - build
+      - test:
+          requires:
+            - build
