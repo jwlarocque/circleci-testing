@@ -1,0 +1,21 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@0.2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/python:2.7
+    steps:
+      - run: echo $PWD
+      - python/install-deps
+      - checkout
+      - run: echo "wow all done"
+      - run: python test.py
+
+workflows:
+  version: 2.1
+  "Test":
+    jobs:
+      - build
