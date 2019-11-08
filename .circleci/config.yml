@@ -10,6 +10,7 @@ jobs:
       - image: circleci/python:2.7
     steps:
       - run: echo $PWD
+      - run: ls
       - python/install-deps
       - checkout
       - run: echo "wow all done"
