@@ -11,10 +11,7 @@ jobs:
       - run: echo $PWD
       - checkout
       - python/install-deps
-      - run: ls -al
-      - run: echo "wow all done"
-      - run: python test.py
-      - run: pytest test.py --verbose --junit-xml test-reports/results.xml
+      - run: pytest --verbose --junit-xml test-reports/results.xml
 
 workflows:
   version: 2.1
