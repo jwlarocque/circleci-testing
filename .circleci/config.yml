@@ -3,15 +3,15 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: circleci/buildpack-deps:stretch
+      - image: circleci/python:2.7
     steps:
       - checkout
+      - chmod -R 777 /usr/local/lib/python2.7/site-packages
       - restore_cache: 
-          key: v4-dependencies-{{ checksum "requirements.txt" }}
-      - run: apt-get install python-pip
+          key: v5-dependencies-{{ checksum "requirements.txt" }}
       - run: pip install --user -r requirements.txt
       - save_cache:
-          key: v4-dependencies-{{ checksum "requirements.txt" }}
+          key: v5-dependencies-{{ checksum "requirements.txt" }}
           paths:
             - "/usr/local/lib/python2.7/site-packages"
       - run: python -m pytest --verbose --junit-xml test-reports/results.xml
