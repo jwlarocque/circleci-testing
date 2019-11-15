@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: circleci/python:2.7
+      - image: circleci/buildpack-deps
     steps:
       - checkout
       - restore_cache: 
