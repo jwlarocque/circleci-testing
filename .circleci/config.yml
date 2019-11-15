@@ -17,7 +17,7 @@ jobs:
           key: v6-dependencies-{{ checksum "requirements.txt" }}
           paths:
             - "/usr/local/lib/python2.7/site-packages"
-            = "/usr/local/bin"
+            - "/usr/local/bin"
       - run: python -m pytest --verbose --junit-xml test-reports/results.xml
       - store_test_results:
           path: test-reports
