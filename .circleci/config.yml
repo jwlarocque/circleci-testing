@@ -6,7 +6,7 @@ jobs:
       - image: circleci/python:2.7
     steps:
       - checkout
-      - chmod -R 777 /usr/local/lib/python2.7/site-packages
+      - run: chmod -R 777 /usr/local/lib/python2.7/site-packages
       - restore_cache: 
           key: v5-dependencies-{{ checksum "requirements.txt" }}
       - run: pip install --user -r requirements.txt
