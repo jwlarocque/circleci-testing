@@ -3,4 +3,5 @@ def func():
     return 1
 
 def test_func():
+    print "test running..."
     assert func() == 1

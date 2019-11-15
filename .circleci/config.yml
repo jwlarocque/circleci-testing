@@ -1,30 +1,54 @@
 version: 2.1
 
-orbs:
-  python: circleci/python@0.2.1
-
 jobs:
-  build:
-    docker:
-      - image: circleci/python:2.7
-    steps:
-      - run: echo $PWD
-      - checkout
-      - python/install-deps
-
   test:
     docker:
-      - image: circleci/python:2.7
+      - image: circleci/buildpack-deps
     steps:
-      - run: pytest --verbose --junit-xml test-reports/results.xml
+      - checkout
+      - restore_cache: 
+          key: v3-dependencies-{{ checksum "requirements.txt" }}
+      - run: pip install --user -r requirements.txt
+      - save_cache:
+          key: v3-dependencies-{{ checksum "requirements.txt" }}
+          paths:
+            - "/usr/local/lib/python2.7/site-packages"
+      - run: python -m pytest --verbose --junit-xml test-reports/results.xml
       - store_test_results:
           path: test-reports
+      - store_artifacts:
+          path: test-reports
+
+  lint:
+    docker:
+      - image: circleci/buildpack-deps
+    steps:
+      - checkout
+      - restore_cache: 
+          key: v3-dependencies-{{ checksum "requirements.txt" }}
+      - run: pip install --user -r requirements.txt
+      - save_cache:
+          key: v3-dependencies-{{ checksum "requirements.txt" }}
+          paths:
+            - "/usr/local/lib/python2.7/site-packages"
+      - run: /usr/local/bin/pylint --rcfile=../.pylintrc ../src/corebiome
+      - run: touch ./src/scripts/__init__.py; /usr/local/bin/pylint --rcfile=.pylintrc ./src/scripts; rm ./src/scripts/__init__.py
 
 workflows:
   version: 2.1
+
   "Test":
     jobs:
-      - build
       - test:
-          requires:
-            - build
+          filters:
+            branches:
+              only:
+                - devops/circleci
+
+  "Lint":
+    jobs:
+      - lint:
+          filters:
+            branches:
+              only:
+                - devops/circleci

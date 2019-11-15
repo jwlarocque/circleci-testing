@@ -1,2 +1,3 @@
 pip-install-test
 pytest
+pylint
