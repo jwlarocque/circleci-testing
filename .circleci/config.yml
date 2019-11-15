@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: circleci/buildpack-deps
+      - image: circleci/buildpack-deps:stretch
     steps:
       - checkout
       - restore_cache: 
