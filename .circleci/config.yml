@@ -1,17 +1,12 @@
 version: 2.1
 
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/python:2.7
     steps:
       - checkout
       - run: pip install --user -r requirements.txt
-
-  test:
-    docker:
-      - image: circleci/python:2.7
-    steps:
       - run: pytest --verbose --junit-xml test-reports/results.xml
       - store_test_results:
           path: test-reports
