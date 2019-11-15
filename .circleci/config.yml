@@ -35,7 +35,7 @@ jobs:
       - run: touch ./src/scripts/__init__.py; /usr/local/bin/pylint --rcfile=.pylintrc ./src/scripts; rm ./src/scripts/__init__.py
 
 workflows:
-  "Test":
+  "Build and Test":
     jobs:
       - test:
           filters:
