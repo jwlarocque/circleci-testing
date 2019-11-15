@@ -36,7 +36,6 @@ jobs:
 
 workflows:
   version: 2.1
-
   "Test":
     jobs:
       - test:
@@ -44,7 +43,6 @@ workflows:
             branches:
               only:
                 - devops/circleci
-
   "Lint":
     jobs:
       - lint:
