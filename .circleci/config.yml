@@ -10,6 +10,8 @@ jobs:
           command: |
             sudo chmod -R 777 /usr/local/lib/python2.7/site-packages
             sudo chown -R circleci /usr/local/lib/python2.7/site-packages
+            sudo chmod -R 777 /usr/local/bin
+            sudo chown -R circleci /usr/local/bin
       - restore_cache: 
           key: v6-dependencies-{{ checksum "requirements.txt" }}
       - run: pip install --user -r requirements.txt
