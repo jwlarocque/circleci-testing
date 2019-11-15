@@ -1,5 +1,5 @@
 def func():
-    print "this is python!!!"
+    print "this is python!"
     return 1
 
 def test_func():
