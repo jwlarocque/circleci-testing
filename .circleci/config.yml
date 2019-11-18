@@ -3,22 +3,23 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: continuumio/miniconda
+      - image: circleci/python:2.7
     steps:
       - checkout
-      - restore_cache: 
-          key: v8-dependencies-{{ checksum "requirements.txt" }}
       - run: 
           command: |
-            pip install --user conda
-            conda create -p=cenv python=2.7 -y
-            echo "conda activate ./cenv" >> $BASH_ENV
-            conda activate ./cenv
-            pip install -r requirements.txt
+            sudo chmod -R 777 /usr/local/lib/python2.7/site-packages
+            sudo chown -R circleci /usr/local/lib/python2.7/site-packages
+            sudo chmod -R 777 /usr/local/bin
+            sudo chown -R circleci /usr/local/bin
+      - restore_cache: 
+          key: v6-dependencies-{{ checksum "requirements.txt" }}
+      - run: pip install --user -r requirements.txt
       - save_cache:
-          key: v8-dependencies-{{ checksum "requirements.txt" }}
+          key: v6-dependencies-{{ checksum "requirements.txt" }}
           paths:
-            - "cenv"
+            - "/usr/local/lib/python2.7/site-packages"
+            - "/usr/local/bin"
       - run: python -m pytest --verbose --junit-xml test-reports/results.xml
       - store_test_results:
           path: test-reports
