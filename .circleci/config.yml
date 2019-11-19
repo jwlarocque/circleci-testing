@@ -7,15 +7,15 @@ jobs:
     steps:
       - checkout
       - restore_cache: 
-          key: v10-dependencies-{{ checksum "requirements.txt" }}
+          key: v11-dependencies-{{ checksum "requirements.txt" }}
       - run: 
           command: |
             [ -d cenv ] || conda create -p=cenv python=2.7 -y
             echo "source activate ./cenv" >> $BASH_ENV
             source activate ./cenv
-            conda install --file requirements.txt
+            pip install -r requirements.txt
       - save_cache:
-          key: v10-dependencies-{{ checksum "requirements.txt" }}
+          key: v11-dependencies-{{ checksum "requirements.txt" }}
           paths:
             - "cenv"
       - run: python -m pytest --ignore=cenv --verbose --junit-xml test-reports/results.xml
