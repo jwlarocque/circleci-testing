@@ -13,7 +13,7 @@ jobs:
             pip install --user conda
             conda create -p=cenv python=2.7 -y
             echo "conda activate ./cenv" >> $BASH_ENV
-            conda activate ./cenv
+            source activate ./cenv
             pip install -r requirements.txt
       - save_cache:
           key: v8-dependencies-{{ checksum "requirements.txt" }}
