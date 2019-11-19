@@ -10,7 +10,6 @@ jobs:
           key: v8-dependencies-{{ checksum "requirements.txt" }}
       - run: 
           command: |
-            pip install --user conda
             conda create -p=cenv python=2.7 -y
             echo "source activate ./cenv" >> $BASH_ENV
             source activate ./cenv
@@ -19,7 +18,7 @@ jobs:
           key: v8-dependencies-{{ checksum "requirements.txt" }}
           paths:
             - "cenv"
-      - run: python -m pytest --verbose --junit-xml test-reports/results.xml
+      - run: python -m pytest --ignore=cenv --verbose --junit-xml test-reports/results.xml
       - store_test_results:
           path: test-reports
       - store_artifacts:
