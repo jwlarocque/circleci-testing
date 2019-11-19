@@ -13,7 +13,7 @@ jobs:
             conda create -p=cenv python=2.7 -y
             echo "source activate ./cenv" >> $BASH_ENV
             source activate ./cenv
-            pip install -r requirements.txt
+            conda install --file requirements.txt
       - save_cache:
           key: v9-dependencies-{{ checksum "requirements.txt" }}
           paths:
