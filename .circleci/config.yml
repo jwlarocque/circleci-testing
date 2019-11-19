@@ -12,7 +12,7 @@ jobs:
           command: |
             pip install --user conda
             conda create -p=cenv python=2.7 -y
-            echo "conda activate ./cenv" >> $BASH_ENV
+            echo "source activate ./cenv" >> $BASH_ENV
             source activate ./cenv
             pip install -r requirements.txt
       - save_cache:
